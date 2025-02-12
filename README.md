@@ -1,4 +1,4 @@
-# browserslist-config
+# @dnb/browserslist-config
 
 Custom [browserslist](https://browsersl.ist/) configuration for DNB services and web applications.
 
