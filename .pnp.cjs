@@ -27,6 +27,8 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["dotenv", "npm:16.4.7"],\
+          ["dotenv-cli", "npm:8.0.0"],\
           ["prettier", "npm:3.5.0"],\
           ["semantic-release", "npm:24.2.2"]\
         ],\
@@ -68,6 +70,8 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@dnb/browserslist-config", "workspace:."],\
+          ["dotenv", "npm:16.4.7"],\
+          ["dotenv-cli", "npm:8.0.0"],\
           ["prettier", "npm:3.5.0"],\
           ["semantic-release", "npm:24.2.2"]\
         ],\
@@ -1492,6 +1496,37 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["dot-prop", "npm:5.3.0"],\
           ["is-obj", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["dotenv", [\
+      ["npm:16.4.7", {\
+        "packageLocation": "../../../.yarn/berry/cache/dotenv-npm-16.4.7-29680c94f8-10c0.zip/node_modules/dotenv/",\
+        "packageDependencies": [\
+          ["dotenv", "npm:16.4.7"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["dotenv-cli", [\
+      ["npm:8.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/dotenv-cli-npm-8.0.0-96370dc09b-10c0.zip/node_modules/dotenv-cli/",\
+        "packageDependencies": [\
+          ["dotenv-cli", "npm:8.0.0"],\
+          ["cross-spawn", "npm:7.0.6"],\
+          ["dotenv", "npm:16.4.7"],\
+          ["dotenv-expand", "npm:10.0.0"],\
+          ["minimist", "npm:1.2.8"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["dotenv-expand", [\
+      ["npm:10.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/dotenv-expand-npm-10.0.0-fa5b032ad9-10c0.zip/node_modules/dotenv-expand/",\
+        "packageDependencies": [\
+          ["dotenv-expand", "npm:10.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
