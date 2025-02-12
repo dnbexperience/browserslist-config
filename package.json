@@ -10,14 +10,20 @@
   },
   "scripts": {
     "release": "semantic-release",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "release:dry": "dotenv semantic-release --no-ci --dry-run",
     "lint:fix": "prettier --write ."
   },
   "devDependencies": {
-    "dotenv": "^16.4.7",
-    "dotenv-cli": "^8.0.0",
+    "@types/node": "22.13.1",
+    "browserslist": "4.24.4",
+    "dotenv": "16.4.7",
+    "dotenv-cli": "8.0.0",
     "prettier": "3.5.0",
-    "semantic-release": "^24.2.2"
+    "semantic-release": "24.2.2",
+    "typescript": "5.7.3",
+    "vitest": "3.0.5"
   },
   "engines": {
     "node": "20.8.1"
