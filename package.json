@@ -1,0 +1,23 @@
+{
+  "name": "@dnb/browserslist-config",
+  "version": "1.0.0",
+  "license": "SEE LICENSE IN LICENSE FILE",
+  "author": "DNB",
+  "main": "browserslist.cjs",
+  "description": "Browserslist configuration for DNB services and web applications.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "3.5.0",
+  },
+  "engines": {
+    "node": "20.8.1"
+  },
+  "volta": {
+    "node": "20.8.1"
+  }
+}
