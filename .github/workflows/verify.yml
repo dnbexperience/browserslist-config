@@ -1,12 +1,12 @@
-name: Release
+name: Verify
 
 on:
   push:
-    branches: [main, beta]
+    branches: '**'
 
 jobs:
   release:
-    name: Release
+    name: Verify
     runs-on: ubuntu-latest
 
     steps:
@@ -31,14 +31,3 @@ jobs:
 
       - name: Test
         run: yarn test
-
-      - name: Set git config
-        run: |
-          git config --global user.name 'Tobias Høegh'
-          git config --global user.email 'tobias@tujo.no'
-
-      - name: Publish to NPM
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn release

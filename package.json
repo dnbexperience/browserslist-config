@@ -8,6 +8,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "browserslist.cjs",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "scripts": {
     "release": "semantic-release",
     "test": "vitest run",
