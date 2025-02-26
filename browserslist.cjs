@@ -5,6 +5,7 @@ module.exports = [
   'opera >= 95',
   'safari >= 13.1',
   'ChromeAndroid >= 106',
+  'FirefoxAndroid >= 115',
   'samsung >= 17',
   'iOS >= 13.1',
 ]
