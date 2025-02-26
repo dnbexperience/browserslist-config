@@ -30,6 +30,7 @@ describe('Browserslist', () => {
     // The expected browsers
     const expectedBrowsers = [
       'and_chr 132',
+      'and_ff 132',
       'chrome 109',
       'chrome 110',
       'chrome 111',
