@@ -29,8 +29,8 @@ describe('Browserslist', () => {
   it('should match expected browsers', () => {
     // The expected browsers
     const expectedBrowsers = [
-      'and_chr 132',
-      'and_ff 132',
+      'and_chr 133',
+      'and_ff 135',
       'chrome 109',
       'chrome 110',
       'chrome 111',
@@ -80,6 +80,7 @@ describe('Browserslist', () => {
       'edge 130',
       'edge 131',
       'edge 132',
+      'edge 133',
       'firefox 115',
       'firefox 116',
       'firefox 117',
