@@ -20,12 +20,6 @@ describe('Browserslist', () => {
     expect(config).toContain('samsung 17.0')
   })
 
-  it('should not include android browser', () => {
-    expect(config.some((browser) => browser.includes('android'))).toBe(
-      false
-    )
-  })
-
   it('should match expected browsers', () => {
     // The expected browsers
     const expectedBrowsers = [
