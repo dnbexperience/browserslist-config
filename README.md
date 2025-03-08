@@ -20,13 +20,23 @@ In your `package.json` file:
 }
 ```
 
+## Displaying a list of supported browsers for humans
+
+You can display a list (table) readable for humans:
+
+```ts
+import supportedBrowsers from '@dnb/browserslist-config/supportedBrowsers.mjs'
+
+// Will output an array with an object for each browser, containing "name" and "minimumVersion".
+```
+
 ## Development
 
 ### Use git commit message descriptions
 
 We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to generate our changelogs. Please use the following format for your commit messages:
 
-```bash
+```txt
 feat: add new feature
 fix: fix bug
 docs: update documentation
