@@ -20,7 +20,7 @@ In your `package.json` file:
 }
 ```
 
-## Displaying a list for humans
+## Displaying a list of supported browsers for humans
 
 You can display a list (table) readable for humans:
 
