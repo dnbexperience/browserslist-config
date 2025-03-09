@@ -10,6 +10,7 @@
   },
   "files": [
     "browserslist.cjs",
+    "supportedBrowsers.mjs",
     "README.md",
     "LICENSE",
     "package.json"
@@ -19,7 +20,11 @@
     "test": "vitest run",
     "test:watch": "vitest watch",
     "release:dry": "dotenv semantic-release --no-ci --dry-run",
-    "lint:fix": "prettier --write ."
+    "lint:fix": "prettier --write .",
+    "build": "node --experimental-strip-types generateSupportedBrowsers.ts",
+    "build:watch": "node --watch --experimental-strip-types generateSupportedBrowsers.ts",
+    "prepublishOnly": "yarn build",
+    "prepare": "yarn build"
   },
   "devDependencies": {
     "@types/node": "22.13.9",
@@ -32,9 +37,9 @@
     "vitest": "3.0.8"
   },
   "engines": {
-    "node": "20.8.1"
+    "node": "22.14.0"
   },
   "volta": {
-    "node": "20.8.1"
+    "node": "22.14.0"
   }
 }
