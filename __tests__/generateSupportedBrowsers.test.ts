@@ -336,4 +336,34 @@ describe('generateSupportedBrowsers', () => {
       expect(isRunningFromCLI('file:///path/to/script.js', '')).toBe(false)
     })
   })
+
+  it('should have matching versions in browserslist.cjs and supportedBrowsers.mjs', async () => {
+    // Import the actual files
+    const browserslistConfig = require('../browserslist.cjs')
+    const supportedBrowsers = (await import('../supportedBrowsers.mjs'))
+      .default
+
+    // Import the original browserslist module
+    const originalBrowserslist = (await vi.importActual('browserslist'))
+      .default as typeof browserslist
+
+    // Map the browserslist entries to their expected format
+    const browserslistVersions = new Map(
+      browserslistConfig.map((entry: string) => {
+        const [, version] = entry.split(' >= ')
+        const browserQuery = originalBrowserslist(entry)
+        const browserName = browserQuery[0].split(' ')[0]
+        return [browsers[browserName], version]
+      })
+    )
+
+    // Check each supported browser matches its browserslist configuration
+    for (const browser of supportedBrowsers) {
+      const expectedVersion = browserslistVersions.get(browser.name)
+      expect(browser.minimumVersion).toEqual(expectedVersion)
+    }
+
+    // Check we have the same number of browsers in both files
+    expect(supportedBrowsers.length).toEqual(browserslistVersions.size)
+  })
 })
