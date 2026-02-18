@@ -8,6 +8,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnbexperience/browserslist-config.git"
+  },
   "files": [
     "browserslist.cjs",
     "supportedBrowsers.mjs",
