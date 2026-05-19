@@ -5,18 +5,45 @@ import browserslist from 'browserslist'
 
 const require = createRequire(import.meta.url)
 const configPath = path.resolve(__dirname, '../browserslist.cjs')
-const browserslistConfig = require(configPath).join(', ')
+const browserslistConfigEntries = require(configPath)
+const browserslistConfig = browserslistConfigEntries.join(', ')
 
 describe('Browserslist', () => {
   const config = browserslist(browserslistConfig)
 
-  it('should resolve the configured browser minimums', () => {
+  it('should keep the configured lower browser versions', () => {
+    expect(browserslistConfigEntries).toEqual([
+      'chrome >= 109',
+      'firefox >= 115',
+      'edge >= 109',
+      'opera >= 95',
+      'safari >= 14.1',
+      'ChromeAndroid >= 109',
+      'FirefoxAndroid >= 115',
+      'samsung >= 21',
+      'iOS >= 14.5',
+    ])
+  })
+
+  it('should resolve browsers for the configured families', () => {
     expect(config).toContain('chrome 109')
     expect(config).toContain('firefox 115')
     expect(config).toContain('edge 109')
     expect(config).toContain('opera 95')
-    expect(config).toContain('safari 13.1')
-    expect(config).toContain('ios_saf 13.0-13.1')
-    expect(config).toContain('samsung 17.0')
+    expect(config.some((browser) => browser.startsWith('and_chr '))).toBe(
+      true
+    )
+    expect(config.some((browser) => browser.startsWith('and_ff '))).toBe(
+      true
+    )
+    expect(config.some((browser) => browser.startsWith('safari '))).toBe(
+      true
+    )
+    expect(config.some((browser) => browser.startsWith('ios_saf '))).toBe(
+      true
+    )
+    expect(config.some((browser) => browser.startsWith('samsung '))).toBe(
+      true
+    )
   })
 })

@@ -39,11 +39,11 @@ describe('generateSupportedBrowsers', () => {
         'chrome >= 109',
         'firefox >= 115',
         'edge >= 109',
-        'safari >= 13.1',
-        'ios_saf >= 13.1',
-        'ChromeAndroid >= 106',
+        'safari >= 14.1',
+        'iOS >= 14.5',
+        'ChromeAndroid >= 109',
         'FirefoxAndroid >= 115',
-        'samsung >= 17',
+        'samsung >= 21',
       ])
 
       // Mock browserslist to return expected browser identifiers
@@ -57,15 +57,15 @@ describe('generateSupportedBrowsers', () => {
           case 'edge':
             return ['edge 109']
           case 'safari':
-            return ['safari 13.1']
+            return ['safari 14.1']
           case 'iOS':
-            return ['ios_saf 13.1']
+            return ['ios_saf 14.5-14.8']
           case 'ChromeAndroid':
-            return ['and_chr 106']
+            return ['and_chr 109']
           case 'FirefoxAndroid':
             return ['and_ff 115']
           case 'samsung':
-            return ['samsung 17']
+            return ['samsung 21']
           case 'opera':
             return ['opera 17']
           default:
@@ -100,14 +100,14 @@ describe('generateSupportedBrowsers', () => {
 
       expect(parsedContent).toEqual([
         { name: 'Chrome', minimumVersion: '109' },
-        { name: 'Chrome Android', minimumVersion: '106' },
+        { name: 'Chrome Android', minimumVersion: '109' },
         { name: 'Edge', minimumVersion: '109' },
         { name: 'Firefox', minimumVersion: '115' },
         { name: 'Firefox Android', minimumVersion: '115' },
-        { name: 'iOS Safari', minimumVersion: '13.1' },
+        { name: 'iOS Safari', minimumVersion: '14.5' },
         { name: 'Opera', minimumVersion: '95' },
-        { name: 'Safari', minimumVersion: '13.1' },
-        { name: 'Samsung Browser', minimumVersion: '17' },
+        { name: 'Safari', minimumVersion: '14.1' },
+        { name: 'Samsung Browser', minimumVersion: '21' },
       ])
     })
 
@@ -205,7 +205,7 @@ describe('generateSupportedBrowsers', () => {
       // Verify minimum versions
       expect(chrome.minimumVersion).toBe('109')
       expect(firefox.minimumVersion).toBe('115')
-      expect(safari.minimumVersion).toBe('13.1')
+      expect(safari.minimumVersion).toBe('14.1')
     })
 
     it('should handle decimal version numbers correctly', async () => {
@@ -250,8 +250,8 @@ describe('generateSupportedBrowsers', () => {
         (b: any) => b.name === 'iOS Safari'
       )
 
-      expect(safari.minimumVersion).toBe('13.1')
-      expect(iosSafari.minimumVersion).toBe('13.1')
+      expect(safari.minimumVersion).toBe('14.1')
+      expect(iosSafari.minimumVersion).toBe('14.5')
     })
   })
 
