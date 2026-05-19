@@ -29,8 +29,8 @@ jobs:
       - name: Install deps
         run: yarn install --immutable
 
-      - name: Test
-        run: yarn test
+      - name: Verify package
+        run: yarn verify
 
       - name: Set git config
         run: |
