@@ -15,6 +15,7 @@
   "files": [
     "browserslist.cjs",
     "supportedBrowsers.mjs",
+    "buildTargets.mjs",
     "README.md",
     "LICENSE",
     "package.json"
@@ -27,7 +28,7 @@
     "release:dry": "dotenv semantic-release --no-ci --dry-run",
     "lint:fix": "prettier --write .",
     "build": "tsx generateSupportedBrowsers.ts",
-    "check:generated": "yarn build && git diff --exit-code -- supportedBrowsers.mjs",
+    "check:generated": "yarn build && git diff --exit-code -- supportedBrowsers.mjs buildTargets.mjs",
     "build:watch": "tsx watch generateSupportedBrowsers.ts",
     "prepublishOnly": "yarn build",
     "prepare": "yarn build"

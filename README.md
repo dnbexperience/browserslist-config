@@ -30,6 +30,41 @@ import supportedBrowsers from '@dnb/browserslist-config/supportedBrowsers.mjs'
 // Will output an array with an object for each browser, containing "name" and "minimumVersion".
 ```
 
+## Build targets for Vite, esbuild, and other tools
+
+Tools like Vite and esbuild do not read browserslist configuration. This package provides pre-built target strings compatible with these tools:
+
+```ts
+import buildTargets from '@dnb/browserslist-config/buildTargets.mjs'
+
+// Returns e.g. ['chrome106', 'edge109', 'firefox115', 'ios13.1', 'opera95', 'safari13.1']
+```
+
+Use with Vite:
+
+```ts
+import buildTargets from '@dnb/browserslist-config/buildTargets.mjs'
+
+export default defineConfig({
+  build: {
+    target: buildTargets,
+  },
+})
+```
+
+Use with esbuild:
+
+```ts
+import buildTargets from '@dnb/browserslist-config/buildTargets.mjs'
+
+await esbuild.build({
+  target: buildTargets,
+  // ...
+})
+```
+
+> **Note:** Samsung Browser is excluded from build targets as it has no esbuild equivalent. Families that share an engine are merged — e.g. Chrome and Chrome Android produce a single `chrome` target using the lower version.
+
 ## Development
 
 ### Use git commit message descriptions
