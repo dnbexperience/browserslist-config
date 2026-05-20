@@ -7,7 +7,7 @@ export default [
   },
   {
     name: 'Chrome Android',
-    minimumVersion: '106',
+    minimumVersion: '109',
   },
   {
     name: 'Edge',
@@ -23,7 +23,7 @@ export default [
   },
   {
     name: 'iOS Safari',
-    minimumVersion: '13.1',
+    minimumVersion: '14.5',
   },
   {
     name: 'Opera',
@@ -31,10 +31,10 @@ export default [
   },
   {
     name: 'Safari',
-    minimumVersion: '13.1',
+    minimumVersion: '14.1',
   },
   {
     name: 'Samsung Browser',
-    minimumVersion: '17',
+    minimumVersion: '21',
   },
 ]
