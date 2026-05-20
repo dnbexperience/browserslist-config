@@ -22,11 +22,13 @@
   "scripts": {
     "release": "semantic-release",
     "test": "vitest run",
+    "verify": "yarn test && yarn check:generated",
     "test:watch": "vitest watch",
     "release:dry": "dotenv semantic-release --no-ci --dry-run",
     "lint:fix": "prettier --write .",
-    "build": "node --experimental-strip-types generateSupportedBrowsers.ts",
-    "build:watch": "node --watch --experimental-strip-types generateSupportedBrowsers.ts",
+    "build": "tsx generateSupportedBrowsers.ts",
+    "check:generated": "yarn build && git diff --exit-code -- supportedBrowsers.mjs",
+    "build:watch": "tsx watch generateSupportedBrowsers.ts",
     "prepublishOnly": "yarn build",
     "prepare": "yarn build"
   },
@@ -37,6 +39,7 @@
     "dotenv-cli": "8.0.0",
     "prettier": "3.5.3",
     "semantic-release": "24.2.3",
+    "tsx": "4.22.2",
     "typescript": "5.8.2",
     "vitest": "3.0.8"
   },

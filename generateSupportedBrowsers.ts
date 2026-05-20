@@ -24,12 +24,12 @@ const require = createRequire(import.meta.url)
 const configPath = resolve(__dirname, './browserslist.cjs')
 const browserslistConfig = require(configPath)
 
-interface Browser {
+export interface Browser {
   name: string
-  minimumVersion: number
+  minimumVersion: string
 }
 
-function getSupportedBrowsers(): Browser[] {
+export function getSupportedBrowsers(): Browser[] {
   return browserslistConfig
     .map((browser) => {
       const [, version] = browser.split(/\s*[>=<]+\s*/)
