@@ -263,7 +263,13 @@ describe('generateSupportedBrowsers', () => {
       await generateBrowsersFile()
 
       const writeFileCalls = vi.mocked(writeFile).mock.calls
-      expect(writeFileCalls[0][0]).toMatch(/supportedBrowsers\.mjs$/)
+      const writtenPaths = writeFileCalls.map(([path]) => String(path))
+      expect(writtenPaths).toEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/supportedBrowsers\.mjs$/),
+          expect.stringMatching(/buildTargets\.mjs$/),
+        ])
+      )
     })
 
     it('should include auto-generated comment', async () => {
@@ -273,10 +279,11 @@ describe('generateSupportedBrowsers', () => {
       await generateBrowsersFile()
 
       const writeFileCalls = vi.mocked(writeFile).mock.calls
-      const writtenContent = writeFileCalls[0][1] as string
-      expect(writtenContent).toMatch(
-        /\/\/ This file is auto-generated\. Do not edit directly\./
-      )
+      for (const [, content] of writeFileCalls) {
+        expect(String(content)).toMatch(
+          /\/\/ This file is auto-generated\. Do not edit directly\./
+        )
+      }
     })
 
     it('should handle prettier config file not found', async () => {
