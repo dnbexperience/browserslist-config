@@ -12,7 +12,6 @@ export const browsers: Record<string, string> = {
   edge: 'Edge',
   firefox: 'Firefox',
   ios_saf: 'iOS Safari',
-  opera: 'Opera',
   safari: 'Safari',
   samsung: 'Samsung Browser',
 }
@@ -27,7 +26,6 @@ const esbuildTargetMap: Record<string, string> = {
   firefox: 'firefox',
   FirefoxAndroid: 'firefox',
   iOS: 'ios',
-  opera: 'opera',
   safari: 'safari',
 }
 

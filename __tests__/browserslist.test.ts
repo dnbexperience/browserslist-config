@@ -16,7 +16,6 @@ describe('Browserslist', () => {
       'chrome >= 109',
       'firefox >= 115',
       'edge >= 109',
-      'opera >= 95',
       'safari >= 14.1',
       'ChromeAndroid >= 109',
       'FirefoxAndroid >= 115',
@@ -29,7 +28,6 @@ describe('Browserslist', () => {
     expect(config).toContain('chrome 109')
     expect(config).toContain('firefox 115')
     expect(config).toContain('edge 109')
-    expect(config).toContain('opera 95')
     expect(config.some((browser) => browser.startsWith('and_chr '))).toBe(
       true
     )

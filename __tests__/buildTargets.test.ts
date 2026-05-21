@@ -13,7 +13,6 @@ describe('buildTargets', () => {
       'edge',
       'firefox',
       'ios',
-      'opera',
       'safari',
     ]
 
