@@ -26,7 +26,6 @@ describe('generateSupportedBrowsers', () => {
         edge: 'Edge',
         firefox: 'Firefox',
         ios_saf: 'iOS Safari',
-        opera: 'Opera',
         safari: 'Safari',
         samsung: 'Samsung Browser',
       }
@@ -66,8 +65,6 @@ describe('generateSupportedBrowsers', () => {
             return ['and_ff 115']
           case 'samsung':
             return ['samsung 21']
-          case 'opera':
-            return ['opera 17']
           default:
             return []
         }
@@ -105,7 +102,6 @@ describe('generateSupportedBrowsers', () => {
         { name: 'Firefox', minimumVersion: '115' },
         { name: 'Firefox Android', minimumVersion: '115' },
         { name: 'iOS Safari', minimumVersion: '14.5' },
-        { name: 'Opera', minimumVersion: '95' },
         { name: 'Safari', minimumVersion: '14.1' },
         { name: 'Samsung Browser', minimumVersion: '21' },
       ])

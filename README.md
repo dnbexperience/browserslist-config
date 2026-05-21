@@ -37,7 +37,7 @@ Tools like Vite and esbuild do not read browserslist configuration. This package
 ```ts
 import buildTargets from '@dnb/browserslist-config/buildTargets.mjs'
 
-// Returns e.g. ['chrome106', 'edge109', 'firefox115', 'ios13.1', 'opera95', 'safari13.1']
+// Returns e.g. ['chrome106', 'edge109', 'firefox115', 'ios13.1', 'safari13.1']
 ```
 
 Use with Vite:

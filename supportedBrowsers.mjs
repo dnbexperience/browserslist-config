@@ -26,10 +26,6 @@ export default [
     minimumVersion: '14.5',
   },
   {
-    name: 'Opera',
-    minimumVersion: '95',
-  },
-  {
     name: 'Safari',
     minimumVersion: '14.1',
   },

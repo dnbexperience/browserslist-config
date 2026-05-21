@@ -5,6 +5,5 @@ export default [
   'edge109',
   'firefox115',
   'ios14.5',
-  'opera95',
   'safari14.1',
 ]
