@@ -67,6 +67,16 @@ await esbuild.build({
 
 ## Development
 
+### Install dependencies
+
+Install with Yarn 3.5.1, the version that wrote `yarn.lock`. CI installs with `--immutable`, so a lockfile written by another Yarn version can fail the `Verify` check:
+
+```bash
+COREPACK_ENABLE_AUTO_PIN=0 corepack yarn@3.5.1 install
+```
+
+`COREPACK_ENABLE_AUTO_PIN=0` stops older Corepack versions from adding a `packageManager` field to `package.json`.
+
 ### Use git commit message descriptions
 
 We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to generate our changelogs. Please use the following format for your commit messages:
