@@ -2,35 +2,83 @@ name: Release
 
 on:
   push:
-    branches: [main, beta]
+    branches: [main]
+
+# Only the release job below gets more than read access.
+permissions:
+  contents: read
+
+# semantic-release pushes the version tag before it publishes to npm, so a
+# canceled run can leave a tag without a published version. A second push
+# waits for the running release instead of canceling it.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  # yarn.lock was written by Yarn 3.5.1. The Yarn 1 on the runner ignores it
+  # and resolves every dependency again, so all jobs run this Yarn through
+  # Corepack, checked against its SHA-512 hash. Keep it in sync with verify.yml.
+  YARN: yarn@3.5.1+sha512.8cd0e31bd60779ef4ca92b855fb3462c7ec35ce8b345752b7349a68239776417f46d41d79c8047242d9c93b48a1516f64c7444ebe747d9a02bf26868e6fa1f2b
+  # Otherwise Corepack writes a packageManager field into package.json, and the
+  # release would publish it.
+  COREPACK_ENABLE_AUTO_PIN: '0'
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
 
 jobs:
-  release:
-    name: Release
+  verify:
+    name: Verify package
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: 'package.json'
 
-      - name: Use node_modules cache
-        uses: actions/cache@v4
-        id: modules-cache
-        with:
-          path: '**/node_modules'
-          key: ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-modules-
-
       - name: Install deps
-        run: yarn install --immutable
+        run: corepack "$YARN" install --immutable
 
       - name: Verify package
-        run: yarn verify
+        run: corepack "$YARN" verify
+
+  release:
+    name: Release
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # Only main can deploy to this environment, and the npm trusted publisher
+    # for @dnb/browserslist-config is bound to it.
+    environment: npm-release
+
+    permissions:
+      contents: write # semantic-release pushes the version tag and creates the GitHub release
+      issues: write # semantic-release comments on released issues
+      pull-requests: write # semantic-release comments on released pull requests
+      id-token: write # npm Trusted Publishing (OIDC) and provenance
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: 'package.json'
+
+      # The locked release tooling, without a shared cache and without
+      # dependency install scripts
+      - name: Install release tooling
+        run: corepack "$YARN" install --immutable --mode=skip-build
 
       - name: Set git config
         run: |
@@ -40,5 +88,8 @@ jobs:
       - name: Publish to NPM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn release
+          # No npm token: npm publishes with Trusted Publishing (OIDC) and adds
+          # provenance. The generated files are committed and checked by the
+          # verify job, so the publish runs no package scripts.
+          NPM_CONFIG_IGNORE_SCRIPTS: 'true'
+        run: corepack "$YARN" release

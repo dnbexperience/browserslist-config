@@ -4,30 +4,35 @@ on:
   push:
     branches: '**'
 
+permissions:
+  contents: read
+
+env:
+  # The same Yarn as in release.yml, so this check installs what the release
+  # installs. Keep it in sync with release.yml.
+  YARN: yarn@3.5.1+sha512.8cd0e31bd60779ef4ca92b855fb3462c7ec35ce8b345752b7349a68239776417f46d41d79c8047242d9c93b48a1516f64c7444ebe747d9a02bf26868e6fa1f2b
+  COREPACK_ENABLE_AUTO_PIN: '0'
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+
 jobs:
   release:
     name: Verify
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: 'package.json'
 
-      - name: Use node_modules cache
-        uses: actions/cache@v4
-        id: modules-cache
-        with:
-          path: '**/node_modules'
-          key: ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-modules-
-
       - name: Install deps
-        run: yarn install --immutable
+        run: corepack "$YARN" install --immutable
 
       - name: Verify package
-        run: yarn verify
+        run: corepack "$YARN" verify

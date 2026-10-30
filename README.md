@@ -67,6 +67,16 @@ await esbuild.build({
 
 ## Development
 
+### Install dependencies
+
+Install with Yarn 3.5.1, the version that wrote `yarn.lock`. CI installs with `--immutable`, so a lockfile written by another Yarn version can fail the `Verify` check:
+
+```bash
+COREPACK_ENABLE_AUTO_PIN=0 corepack yarn@3.5.1 install
+```
+
+`COREPACK_ENABLE_AUTO_PIN=0` stops older Corepack versions from adding a `packageManager` field to `package.json`.
+
 ### Use git commit message descriptions
 
 We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to generate our changelogs. Please use the following format for your commit messages:
@@ -89,6 +99,8 @@ When you merge a pull request, choose to squash the commits into one commit.
 ### Release
 
 When a pull request is merged, a new release will be created automatically. The release will be tagged with the version number from the commit message.
+
+The release workflow publishes to npm from the `npm-release` GitHub environment with [Trusted Publishing](https://docs.npmjs.com/trusted-publishers), so it needs no npm token. Each version it publishes gets a provenance statement that links the version to the commit and the workflow run that published it.
 
 ## Update Browserslist
 
