@@ -90,6 +90,8 @@ When you merge a pull request, choose to squash the commits into one commit.
 
 When a pull request is merged, a new release will be created automatically. The release will be tagged with the version number from the commit message.
 
+The release workflow publishes to npm from the `npm-release` GitHub environment with [Trusted Publishing](https://docs.npmjs.com/trusted-publishers), so no npm token is stored. Every version gets a provenance statement that links it to the commit and the workflow run that published it.
+
 ## Update Browserslist
 
 **Stay Updated:** Regularly update your caniuse-lite database to ensure Browserslist has the most recent data. You can do this by running:
