@@ -16,6 +16,13 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  # yarn.lock was written by Yarn 3.5.1. The Yarn 1 on the runner ignores it
+  # and resolves every dependency again, so all jobs run this Yarn through
+  # Corepack, checked against its SHA-512 hash. Keep it in sync with verify.yml.
+  YARN: yarn@3.5.1+sha512.8cd0e31bd60779ef4ca92b855fb3462c7ec35ce8b345752b7349a68239776417f46d41d79c8047242d9c93b48a1516f64c7444ebe747d9a02bf26868e6fa1f2b
+  # Otherwise Corepack writes a packageManager field into package.json, and the
+  # release would publish it.
+  COREPACK_ENABLE_AUTO_PIN: '0'
   COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
 
 jobs:
@@ -35,14 +42,11 @@ jobs:
         with:
           node-version-file: 'package.json'
 
-      # yarn.lock was written by Yarn 3.5.1. The Yarn 1 on the runner ignores
-      # it and resolves every dependency again, so both jobs use Yarn 3.5.1
-      # and install exactly the locked versions.
       - name: Install deps
-        run: corepack yarn@3.5.1 install --immutable
+        run: corepack "$YARN" install --immutable
 
       - name: Verify package
-        run: corepack yarn@3.5.1 verify
+        run: corepack "$YARN" verify
 
   release:
     name: Release
@@ -74,7 +78,7 @@ jobs:
       # The locked release tooling, without a shared cache and without
       # dependency install scripts
       - name: Install release tooling
-        run: corepack yarn@3.5.1 install --immutable --mode=skip-build
+        run: corepack "$YARN" install --immutable --mode=skip-build
 
       - name: Set git config
         run: |
@@ -88,4 +92,4 @@ jobs:
           # provenance. The generated files are committed and checked by the
           # verify job, so the publish runs no package scripts.
           NPM_CONFIG_IGNORE_SCRIPTS: 'true'
-        run: corepack yarn@3.5.1 release
+        run: corepack "$YARN" release
