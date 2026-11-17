@@ -1,7 +1,7 @@
 {
   "name": "@dnb/browserslist-config",
   "version": "0.0.0-development",
-  "license": "SEE LICENSE IN LICENSE FILE",
+  "license": "SEE LICENSE IN LICENSE",
   "author": "DNB",
   "main": "browserslist.cjs",
   "description": "Browserslist configuration for DNB services and web applications.",
